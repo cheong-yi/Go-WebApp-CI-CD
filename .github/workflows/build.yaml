@@ -30,75 +30,62 @@ jobs:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
     # instance variable seems to be working, displays on railway
 
-    # - name: Post to a Slack channel
-    #   id: slack
-    #   uses: slackapi/slack-github-action@v1.23.0
-    #   with:
-    #     payload: |
-    #         {
-    #           "blocks": [
-    #             {
-    #               "type": "header",
-    #               "text": {
-    #                 "type": "plain_text",
-    #                 "text": "DipSA 56 CI/CD Submission"
-    #               }
-    #             },
-    #             {
-    #               "type": "section",
-    #               "fields": [
-    #                 {
-    #                   "type": "mrkdwn",
-    #                   "text": "*Name:* ${{ vars.NAME }}"
-    #                 },
-    #                 {
-    #                   "type": "mrkdwn",
-    #                   "text": "*Email:* ${{ vars.EMAIL }}"
-    #                 },
-    #                 {
-    #                   "type": "mrkdwn",
-    #                   "text": "*Matriculation:* ${{ vars.MATRICULATION_NUM }}"
-    #                 },
-    #                 {
-    #                   "type": "mrkdwn",
-    #                   "text": "*Repository:* ${{ github.repositoryUrl }}"
-    #                 }
-    #               ]
-    #             },
-    #             {
-    #               "type": "section",
-    #               "text": {
-    #                 "type": "mrkdwn",
-    #                 "text": "${{ vars.RAILWAY_URL }}"
-    #               },
-    #               "accessory": {
-    #                 "type": "button",
-    #                 "text": {
-    #                   "type": "plain_text",
-    #                   "text": "Go",
-    #                   "emoji": true
-    #                 },
-    #                 "value": "click_me_123",
-    #                 "url": "${{ vars.RAILWAY_URL }}",
-    #                 "action_id": "button-action"
-    #               }
-    #             }
-    #           ]
-    #         }
-    #   env:
-    #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}    
-
-    - name: Send custom JSON data to Slack workflow
+    - name: Post to a Slack channel
       id: slack
       uses: slackapi/slack-github-action@v1.23.0
       with:
-        # This data can be any valid JSON from a previous step in the GitHub Action
         payload: |
-          {
-            "key": "value",
-            "foo": "bar"
-          }
+            {
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "DipSA 56 CI/CD Submission"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Name:* ${{ vars.NAME }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Email:* ${{ vars.EMAIL }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Matriculation:* ${{ vars.MATRICULATION_NUM }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Repository:* ${{ github.repositoryUrl }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "${{ vars.RAILWAY_URL }}"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "Go",
+                      "emoji": true
+                    },
+                    "value": "click_me_123",
+                    "url": "${{ vars.RAILWAY_URL }}",
+                    "action_id": "button-action"
+                  }
+                }
+              ]
+            }
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}    
 
 # markdown stuff here
