@@ -16,10 +16,7 @@ jobs:
 
     - name: setup railway cli
       run: yarn global add @railway/cli
-
-    - name: log into railway
-      run: railway login
-
+    
     - name: deploy to railway
       run: railway up
       env:
