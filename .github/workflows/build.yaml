@@ -1,5 +1,7 @@
 name: CI/CD Submission
 on: [ push ]
+# The pipeline should be triggered when a branchname with the following format: release/v<digit>.<digit>.
+# change this to only accept from release/v<digit>.<digit> at the end
 
 jobs:
   build_golang:
@@ -26,3 +28,66 @@ jobs:
       run: railway up
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+    # instance variable seems to be working, displays on railway
+
+    - name: Post to a Slack channel
+      id: slack
+      uses: slackapi/slack-github-action@v1.23.0
+      with:
+      # For posting a rich message using Block Kit
+        payload: |
+            {
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "DipSA 56 CI/CD Submission"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Name:* ${{ vars.NAME }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Email:* ${{ vars.EMAIL }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Matriculation:* ${{ vars.MATRICULATION_NUM }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Repository:* ${{ github.repositoryUrl }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "${{ vars.RAILWAY_URL }}"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "Go",
+                      "emoji": true
+                    },
+                    "value": "click_me_123",
+                    "url": "${{ vars.RAILWAY_URL }}",
+                    "action_id": "button-action"
+                  }
+                }
+              ]
+            }
+          
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}    
+
+# markdown stuff here
