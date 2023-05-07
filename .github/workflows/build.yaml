@@ -2,7 +2,7 @@ name: CI/CD Workshop
 on: [ push ]
 
 jobs:
-  build_dotnet:
+  build_golang:
     runs-on: ubuntu-latest
     steps:
     - name: setup golang
@@ -13,6 +13,9 @@ jobs:
 
     - name: checkout source
       uses: actions/checkout@v3
+
+    - name: setup railway cli
+      uses: MadeByThePinsHub/setup-railway-cli-action@v0.1.0
 
     - name: list your repo
       run: ls -l
