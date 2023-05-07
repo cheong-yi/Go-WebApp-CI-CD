@@ -1,10 +1,10 @@
 name: CI/CD Submission
 on: 
   push:
+  # The pipeline should be triggered when a branchname with the following format: release/v<digit>.<digit>.
+  # change this to only accept from release/v<digit>.<digit> at the end
     branches:
       - 'release/v[0-9]+.[0-9]+'
-# The pipeline should be triggered when a branchname with the following format: release/v<digit>.<digit>.
-# change this to only accept from release/v<digit>.<digit> at the end
 
 jobs:
   build_golang:
@@ -31,9 +31,10 @@ jobs:
     - name: deploy to railway
       run: railway up
       env:
+        # instance variable seems to be working, displays on railway
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-    # instance variable seems to be working, displays on railway
 
+    # markdown stuff here
     - name: Post to a Slack channel
       id: slack
       uses: slackapi/slack-github-action@v1.23.0
@@ -92,5 +93,3 @@ jobs:
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}   
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK 
-
-# markdown stuff here
