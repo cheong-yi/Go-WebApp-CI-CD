@@ -1,4 +1,4 @@
-name: CI/CD Workshop
+name: CI/CD Submission
 on: [ push ]
 
 jobs:
@@ -17,5 +17,10 @@ jobs:
     - name: setup railway cli
       run: yarn global add @railway/cli
 
-    - name: list your repo
-      run: ls -l
+    - name: log into railway
+      run: railway login
+
+    - name: deploy to railway
+      run: railway up
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
