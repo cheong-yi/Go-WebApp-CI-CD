@@ -1,9 +1,6 @@
 name: CI/CD Submission
 on: 
   push:
-    branches:
-      - 'releases/**'
-      - '!releases/**'
 # The pipeline should be triggered when a branchname with the following format: release/v<digit>.<digit>.
 # change this to only accept from release/v<digit>.<digit> at the end
 
